@@ -4,7 +4,6 @@
 # Turning a line using a trigonometry charts
 import pygame
 from sys import exit
-import math
 from time import sleep
 
 
@@ -21,6 +20,10 @@ mouse = [250,250]
 start = [10,10]
 end = [100,100]
 
+coord = []
+
+
+count =  0
 
 def set_0(x: int , y: int)-> tuple:
     '''Correct coordinates as the center of the graph is point(start)'''
@@ -29,26 +32,52 @@ def set_0(x: int , y: int)-> tuple:
     return(round(x),round(y))
 
 def fill():
-    print("Panting black")
+    sleep(0.0001)
+    #print("Panting black")
     screen.fill("black")
+
+def set_list_coor(start,end,angle):
+
+    '''Angle's sine and cosine must be programed to be choosen inside a 
+    trigonometric chart.
+    Due to the problems python have with small decimal numbers, 
+    the math's library is not reliable in this case, for consequence
+    pygame.Vector too.
+    '''
+    
+    lista = []
+    #Using values as angle = 5°
+    for n in range(360/angle):
+        new_x_end = (end[0]* 0.9962 ) - (end[1] * 0.0872)
+        new_y_end = (end[0]* 0.0872) + (end[1]* 0.9962)
+        end = new_x_end,new_y_end
+    lista.extend([start,set_0(end[0],end[1])])
+    
+    return lista
+
     
 while True:
-    fill()
+
+    if count == 360/5:
+        pygame.draw.lines(screen,"white",closed=False,points=coord, width=1)
+        coord = []
+        count = 0
     
     mouse = pygame.mouse.get_pos()
     start = mouse
-    sleep(1)
-    # Drawing the first line
-    pygame.draw.line(screen,"white",start_pos=(start),end_pos=(set_0(end[0],end[1])),width=3)
-    sleep(1)
     
     # New coordinates to end
     # Using trigonometric values of 60º
     # x′ = x * cos(θ) - y * sin(θ)
     # y′ = x * sin(θ) + y * cos(θ)
-    new_x_end = (end[0]* 0.5000 ) - (end[1] * 0.8660)
-    new_y_end = (end[0]* 0.8660) + (end[1]* 0.5000)
+    new_x_end = (end[0]* 0.9962 ) - (end[1] * 0.0872)
+    new_y_end = (end[0]* 0.0872) + (end[1]* 0.9962)
     end = new_x_end,new_y_end
+    coord.extend([start,set_0(end[0],end[1])])
+    #coord.append(set_0(end[0],end[1]))
+    
+    #Counting the itens add to list de coordinates
+    count += 1
     
 
     for event in pygame.event.get():
