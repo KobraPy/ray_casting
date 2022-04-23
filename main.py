@@ -18,26 +18,22 @@ imag = pygame.Surface((500,500))
 # Inicial coordinates
 mouse = [250,250]
 start = [10,10]
+
+#This variable defines the end of the first line to draw, for consequence the lengh of the lines.
 end = [100,100]
 
-coord = []
-
-
-count =  0
 
 def set_0(x: int , y: int)-> tuple:
-    '''Correct coordinates as the center of the graph is point(start)'''
+    '''Pygame uses a quadrant that dosent exits in a traditional graph,
+    to uses trigonometric formulas we have trasform the values'''
+     
     x = start[0] + x
     y = start[1] - y 
     return(round(x),round(y))
 
-def fill():
-    sleep(0.0001)
-    #print("Panting black")
-    screen.fill("black")
 
-def set_list_coor(start,end,angle):
-
+def set_list_coor(start=None,end=None,angle=5):
+    
     '''Angle's sine and cosine must be programed to be choosen inside a 
     trigonometric chart.
     Due to the problems python have with small decimal numbers, 
@@ -47,38 +43,26 @@ def set_list_coor(start,end,angle):
     
     lista = []
     #Using values as angle = 5°
-    for n in range(360/angle):
+    for n in range(360//angle):
         new_x_end = (end[0]* 0.9962 ) - (end[1] * 0.0872)
         new_y_end = (end[0]* 0.0872) + (end[1]* 0.9962)
         end = new_x_end,new_y_end
-    lista.extend([start,set_0(end[0],end[1])])
-    
+        lista.extend([start,set_0(end[0],end[1])])
+    print(lista.__len__())
+   
     return lista
 
     
 while True:
 
-    if count == 360/5:
-        pygame.draw.lines(screen,"white",closed=False,points=coord, width=1)
-        coord = []
-        count = 0
+    start = pygame.mouse.get_pos()
+    coordinates  = set_list_coor(start=start,end=end,angle=5)
+
+    #screen.blit must be used before the first draw
+    screen.fill("black")
+    pygame.draw.lines(screen,"white",closed=False,points=coordinates,width=2)
     
-    mouse = pygame.mouse.get_pos()
-    start = mouse
-    
-    # New coordinates to end
-    # Using trigonometric values of 60º
-    # x′ = x * cos(θ) - y * sin(θ)
-    # y′ = x * sin(θ) + y * cos(θ)
-    new_x_end = (end[0]* 0.9962 ) - (end[1] * 0.0872)
-    new_y_end = (end[0]* 0.0872) + (end[1]* 0.9962)
-    end = new_x_end,new_y_end
-    coord.extend([start,set_0(end[0],end[1])])
-    #coord.append(set_0(end[0],end[1]))
-    
-    #Counting the itens add to list de coordinates
-    count += 1
-    
+   
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
