@@ -4,7 +4,8 @@
 # Turning a line using a trigonometry charts
 import pygame
 from sys import exit
-from teste import line_intersection as inter
+from intersection import line_intersection as li
+
 
 
 clock = pygame.time.Clock()
@@ -50,7 +51,7 @@ def set_list_coor(start=None,end=None,angle=5):
         new_y_end = (end[0]* 0.0872) + (end[1]* 0.9962)
         end = new_x_end,new_y_end
         
-        inter((start,set_0(end[0],end[1])),((200,200),(200,-200)))
+    
         lista.extend([start,set_0(end[0],end[1])])
     print(lista.__len__())
    
@@ -66,7 +67,7 @@ while True:
     #screen.blit must be used before the first draw
     screen.fill("black")
     pygame.draw.lines(screen,"white",closed=False,points=coordinates,width=2)
-    pygame.draw.line(screen, "white", start_pos=(set_0(200,200,(250,250))), end_pos=(set_0(200,-200,(250,250))))
+   
     
    
 
@@ -78,7 +79,7 @@ while True:
     
     pygame.display.update()
 
-    clock.tick(1)
+    clock.tick()
 
     
 
