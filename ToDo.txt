@@ -1,0 +1,2 @@
+1) Teste if is possible to correct the values in pygame.Vector after
+the calculation to see if isnt necessary to use a function to this.
