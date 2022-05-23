@@ -66,12 +66,21 @@ def set_list_coor(start=None,end=None, angle=5):
         
         
         a = set_0(end[0],end[1])
-        b = li((start,a),((500,100),(400,400)))
+
+        #testing lines collision
+        b = li((start, a), ((400, 100), (400, 400)))
+        c = li((start, a), ((100, 100), (100, 400)))
+        d = li((start, a), ((200, 200), (300, 300)))
 
         if b != False:
-            lista.extend([start,b])
+            lista.extend([start, b])
+        elif c != False:
+            lista.extend([start, c])
+        elif d != False:
+            lista.extend([start, d])
+
         else:
-            lista.extend([start,a])
+            lista.extend([start, a])
         
  
    
@@ -86,10 +95,13 @@ while True:
 
     #screen.blit must be used before the first draw
     screen.fill("black")
-    pygame.draw.lines(screen,"white",closed=False,points=coordinates,width=2)
-    pygame.draw.line(screen, "white", start_pos=(500,100),end_pos=(400,400))
-   
-   
+    pygame.draw.lines(screen,"white",closed=True,points=coordinates,width=2)
+
+    
+    # Drawing colisions lines
+    pygame.draw.line(screen, "white", start_pos=(400,100), end_pos=(400,400))
+    pygame.draw.line(screen, "white", start_pos=(100,100), end_pos=(100,400))
+    pygame.draw.line(screen, "white", start_pos=(200,200), end_pos=(300,300))
     
    
 

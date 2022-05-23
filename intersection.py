@@ -1,7 +1,3 @@
-
-from random import randint
-
-
 #Wikipedia "Line-line intersection"
 
 def line_intersection(line1, line2):
@@ -29,7 +25,7 @@ def line_intersection(line1, line2):
     t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/denominator
     u = -1*((x1-x2)*(y1-y3)-(y1-y2)*(x1-x3))/denominator
 
-    if t > 0 and t < 1 and u > 0:
+    if t > 0 and t < 1 and u > 0 and u < 1 : 
         inter_x = x1 + (t*(x2-x1))
         inter_y = y1 + (t*(y2-y1))
         return(inter_x,inter_y)
