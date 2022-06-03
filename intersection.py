@@ -3,6 +3,10 @@
 
 def line_intersection(line1, line2):
 
+    """
+    Check if two lines intersect and return the point where they intersect or false 
+    """
+
     # Coordenates first line
     x1 = line1[0][0]
     y1 = line1[0][1]
@@ -34,10 +38,12 @@ def line_intersection(line1, line2):
 
 
 def distance_two_points(point1: tuple, point2: tuple) -> float:
+
     """
     Calcule the distance between the origin point and the intersection point
     to the draw the smallest
     """
+    
     # d = sqr((x2-x1)**2 + (y2-y1)**2)
     x1 = point1[0]
     y1 = point1[1]
