@@ -3,3 +3,6 @@ the calculation to see if isnt necessary to use a function to this.
 
 2)Understand how (t) and (u) in intersection function works
 
+3) Right now the script is drawing all the line that intersct even if they subscribe eachother
+Using distance between two points, calcule the smallest line to be draw.
+
