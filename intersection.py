@@ -1,10 +1,11 @@
 # Wikipedia "Line-line intersection"
+from math import sqrt
 
 
 def line_intersection(line1, line2):
 
     """
-    Check if two lines intersect and return the point where they intersect or false 
+    Check if two lines intersect and return the point where they intersect or false
     """
 
     # Coordenates first line
@@ -43,7 +44,7 @@ def distance_two_points(point1: tuple, point2: tuple) -> float:
     Calcule the distance between the origin point and the intersection point
     to the draw the smallest
     """
-    
+
     # d = sqr((x2-x1)**2 + (y2-y1)**2)
     x1 = point1[0]
     y1 = point1[1]
@@ -51,43 +52,5 @@ def distance_two_points(point1: tuple, point2: tuple) -> float:
     x2 = point2[0]
     y2 = point2[1]
 
-    from math import sqrt
-
     d = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
     return d
-
-
-"""import pygame
-pygame.init()
-
-screen = pygame.display.set_mode((500,500))
-clock = pygame.time.Clock()
-
-while True:
-    
-    mouse = pygame.mouse.get_pos()
-    
-
-    screen.fill("black")
-    pygame.draw.line(screen, "white", start_pos=(mouse),end_pos=(500,500))
-
-
-
-    pygame.draw.line(screen, "white", start_pos=(500,100),end_pos=(100,500))
-
-    inter = line_intersection([(mouse),(500,500)],[(500,100),(100,500)])
-
-    if inter:
-        pygame.draw.line(screen,"red",start_pos=mouse, end_pos=inter, width=3)
-
-
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-        mouse = pygame.mouse.get_pos()
-    
-    pygame.display.update()
-
-    clock.tick()"""

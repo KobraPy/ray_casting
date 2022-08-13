@@ -6,7 +6,7 @@
 import pygame
 from sys import exit
 
-from pyrsistent import v
+
 from intersection import line_intersection as li
 from intersection import distance_two_points as dp
 
@@ -14,15 +14,16 @@ from intersection import distance_two_points as dp
 clock = pygame.time.Clock()
 
 
-pygame.init
+pygame.init()
 display = (500, 500)
 screen = pygame.display.set_mode((display))
 
-# Inicial co ordinates
+# Inicial coordinates
 mouse = [300, 300]
 start = [10, 10]
 
-# This variable defines the end of the first line to draw, for consequence the lengh of the lines.
+# This variable defines the end of the first line to draw,
+#  for consequence the lengh of the lines.
 end = [150, 150]
 
 
@@ -32,11 +33,8 @@ def set_0(x: float, y: float, s=()) -> tuple:
 
     The formula to rotate a line its used to rotate around the(0,0)
     point,so after you calculate the lines around the mouse position
-    you have to correct this value as its has been calculated using
-    this point.
-    Pygame uses a quadrant that dosn't exits in a traditional graph,
-    to uses trigonometric formulas we have trasform the (y) value to
-    a negative side.
+    you have to correct this value as if the mouse was on (0,0) point
+    in the graph.
     """
 
     if s == ():
@@ -74,7 +72,8 @@ def set_list_coor(start=None, end=None, angle=5):
         c = li((start, a), ((100, 100), (100, 400)))
         d = li((start, a), ((200, 200), (300, 300)))
 
-        #If there is a intercection, it calculate the distance between the start point and the intersection point
+        # If there is a intercection, it calculate the distance between the 
+        # start point and the intersection point
         if b:
             b_distance = dp(start, b)
         if c:
@@ -82,11 +81,10 @@ def set_list_coor(start=None, end=None, angle=5):
         if d:
             d_distance = dp(start, d)
 
-        if all([b,c,d]):
-        # Checking if the line intesect with all three obstacles and returnig the smallest distance
-        # all function retutrns true if all elemntes on a interable are valid values    
-            
-            
+        if all([b, c, d]):
+            # Checking if the line intesect with all three obstacles and returnig the smallest distance
+            # all function retutrns true if all elemntes on a interable are valid values
+
             if b_distance < c_distance and b_distance < d_distance:
                 lista.extend([start, b])
                 lista_to_circles.append(b)
@@ -94,12 +92,12 @@ def set_list_coor(start=None, end=None, angle=5):
             elif c_distance < b_distance and c_distance < d_distance:
                 lista.extend([start, c])
                 lista_to_circles.append(c)
-            
+
             elif d_distance < b_distance and d_distance < c_distance:
                 lista.extend([start, d])
                 lista_to_circles.append(d)
 
-        #Checking when the lines intersect with two obstacles and returning the smallest distance
+        # Checking when the lines intersect with two obstacles and returning the smallest distance
         elif b and c and not d:
             if b_distance < c_distance:
                 lista.extend([start, b])
@@ -124,7 +122,7 @@ def set_list_coor(start=None, end=None, angle=5):
                 lista.extend([start, d])
                 lista_to_circles.append(d)
 
-        #Checking when the line intersect with just one obstacle
+        # Checking when the line intersect with just one obstacle
         elif b and not c and not d:
             lista.extend([start, b])
             lista_to_circles.append(b)
@@ -136,14 +134,11 @@ def set_list_coor(start=None, end=None, angle=5):
         elif d and not b and not c:
             lista.extend([start, d])
             lista_to_circles.append(d)
-        
-        
 
         else:
             lista.extend([start, a])
 
-
-    return lista,lista_to_circles
+    return lista, lista_to_circles
 
 
 while True:
@@ -152,17 +147,18 @@ while True:
     coordinates = set_list_coor(start=start, end=end, angle=5)
 
     # screen.blit must be used before the first draw
-    screen.fill("black")
-    pygame.draw.lines(screen, "white", closed=True, points=coordinates[0], width=2)
+    screen.fill('black')
+    pygame.draw.lines(
+        screen, 'white', closed=True, points=coordinates[0], width=2
+    )
     for point in coordinates[1]:
-        pygame.draw.circle(screen, "white", point,radius=3 )
-        pygame.draw.circle(screen, "white", point,radius=7, width=1 )
-
+        pygame.draw.circle(screen, 'white', point, radius=3)
+        pygame.draw.circle(screen, 'white', point, radius=7, width=1)
 
     # Drawing colisions lines
-    pygame.draw.line(screen, "white", start_pos=(400, 100), end_pos=(400, 400))
-    pygame.draw.line(screen, "white", start_pos=(100, 100), end_pos=(100, 400))
-    pygame.draw.line(screen, "white", start_pos=(200, 200), end_pos=(300, 300))
+    pygame.draw.line(screen, 'white', start_pos=(400, 100), end_pos=(400, 400))
+    pygame.draw.line(screen, 'white', start_pos=(100, 100), end_pos=(100, 400))
+    pygame.draw.line(screen, 'white', start_pos=(200, 200), end_pos=(300, 300))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
